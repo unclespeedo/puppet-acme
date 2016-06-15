@@ -12,7 +12,7 @@ class acme (
   $accountemail      = '',
   $user              = $acme::params::user,
   $userhome          = "/home/$user",
-  $environment       = hiera_array('acme::dns_environment'),
+  $environment       = '',
 ) inherits acme::params {
   validate_bool($package_manage)
   validate_string($repo_location)
