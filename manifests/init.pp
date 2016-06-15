@@ -9,7 +9,7 @@ class acme (
   $package_ensure    = $acme::params::package_ensure,
   $package_name      = $acme::params::package_name,
   $working_dir       = '/usr/share/acme.sh',
-  $accountemail      = 'ryan@liquify.ca',
+  $accountemail      = '',
   $user              = $acme::params::user,
   $userhome          = "/home/$user",
 ) inherits acme::params {

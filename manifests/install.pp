@@ -12,7 +12,7 @@ class acme::install inherits acme {
   }
   package { $package_name:
     ensure   => $package_ensure,
-    notify   => exec ['acme-install'],
+    notify   => Exec['acme-install'],
   }
   Class['apt::update'] -> Package[$package_name]
   
