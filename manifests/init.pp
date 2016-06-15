@@ -12,6 +12,7 @@ class acme (
   $accountemail      = '',
   $user              = $acme::params::user,
   $userhome          = "/home/$user",
+  $environment       = hiera_array('acme::dns_environment'),
 ) inherits acme::params {
   validate_bool($package_manage)
   validate_string($repo_location)
@@ -22,6 +23,7 @@ class acme (
   validate_string($accountemail)
   validate_string($user)
   validate_absolute_path($userhome)
+  validate_array($environment)
   
   if $package_manage {
     include acme::install

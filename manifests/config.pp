@@ -17,12 +17,13 @@ class acme::config(
   }
 
   exec { "acme-issue":
-    cwd     => $userhome,
-    command => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --debug 2 >> $userhome/renew.log 2>&1",
-    user    => $user,
-    path    => [$home, '/bin', '/usr/bin'],
-    creates => "$certhome/$::fqdn",
-    require => Exec['acme-install'],
+    cwd          => $userhome,
+    environment  => $environment,
+    command      => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
+    user         => $user,
+    path         => [$home, '/bin', '/usr/bin', "$userhome/pip/bin" ],
+    creates      => "$certhome/$::fqdn",
+    require      => Exec['acme-install'],
   }
   
   cron { 'Renew SSL Cert':
