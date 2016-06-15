@@ -20,7 +20,7 @@ class acme::config(
     cwd     => $userhome,
     command => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --debug 2 >> $userhome/renew.log 2>&1",
     user    => $user,
-    path    => ['$home', '/bin', '/usr/bin'],
+    path    => [$home, '/bin', '/usr/bin'],
     creates => "$certhome/$::fqdn",
     require => Exec['acme-install'],
   }
