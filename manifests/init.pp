@@ -14,6 +14,7 @@ class acme (
   $group             = $acme::params::group,
   $userhome          = "/home/$user",
   $environment       = '',
+  $pip_home          = "$userhome/pip",
 ) inherits acme::params {
   validate_bool($package_manage)
   validate_string($repo_location)
@@ -26,6 +27,7 @@ class acme (
   validate_string($group)
   validate_absolute_path($userhome)
   validate_array($environment)
+  validate_absolute_path($pip_home)
   
   if $package_manage {
     include acme::install
