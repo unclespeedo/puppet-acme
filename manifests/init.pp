@@ -11,6 +11,7 @@ class acme (
   $working_dir       = '/usr/share/acme.sh',
   $accountemail      = '',
   $user              = $acme::params::user,
+  $group             = $acme::params::group,
   $userhome          = "/home/$user",
   $environment       = '',
 ) inherits acme::params {
@@ -22,6 +23,7 @@ class acme (
   validate_absolute_path($working_dir)
   validate_string($accountemail)
   validate_string($user)
+  validate_string($group)
   validate_absolute_path($userhome)
   validate_array($environment)
   

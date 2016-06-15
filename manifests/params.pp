@@ -6,4 +6,5 @@ class acme::params {
   $repo_location     = ''
   $repo_trusted      = false
   $user              = ''
+  $group              = ''
 }

@@ -2,10 +2,12 @@
 class acme::config(
   $certhome          = "$userhome/certs",
   $home              = "$userhome/.acme.sh",
+  $pip_home          = "$userhome/pip",
 ) inherits acme {
 
   validate_absolute_path($certhome)
   validate_absolute_path($home)
+  validate_absolute_path($pip_home)
 
   exec { "acme-install":
     cwd     => $working_dir,
@@ -21,7 +23,7 @@ class acme::config(
     environment  => $environment,
     command      => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
     user         => $user,
-    path         => [$home, '/bin', '/usr/bin', "$userhome/pip/bin" ],
+    path         => [$home, '/bin', '/usr/bin', $pip_home ],
     creates      => "$certhome/$::fqdn",
     require      => Exec['acme-install'],
   }
@@ -35,5 +37,24 @@ class acme::config(
     user         => $user,
     require      => Exec['acme-issue'],
   }
-
+  class { 'python':
+    version    => 'system',
+    pip        => 'present',
+    dev        => 'absent',
+    virtualenv => 'present',
+    gunicorn   => 'absent',
+  } ->
+  python::virtualenv { $pip_home:
+    ensure       => present,
+    version      => 'system',
+    venv_dir     => $pip_home,
+    owner        => $user,
+    group        => $group,
+  } ->
+  python::pip { 'dns-lexicon' :
+    pkgname       => 'dns-lexicon',
+    virtualenv    => $pip_home,
+    owner         => $user,
+    group         => $group,
+  }
 }
