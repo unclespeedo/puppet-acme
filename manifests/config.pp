@@ -55,7 +55,7 @@ class acme::config(
     hour         => "4",
     minute       => "35",
     user         => $user,
-    require      => Exec['acme-issue'],
+    require      => Exec['acme-install'],
   }
 
 }
