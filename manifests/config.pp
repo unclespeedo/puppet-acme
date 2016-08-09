@@ -31,7 +31,7 @@ class acme::config(
   } ->
   exec { "acme-install":
     cwd     => $working_dir,
-    command => "acme.sh --install --accountemail $accountemail --certhome $certhome --home $home && acme.sh --uninstallcronjob",
+    command => "acme.sh --install --accountemail $accountemail --certhome $certhome --home $home --nocron",
     path    => [ $working_dir, $pip_bin, '/bin', '/usr/bin',  ],
     user    => $user,
     creates => $home,
