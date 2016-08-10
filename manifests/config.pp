@@ -7,7 +7,12 @@ class acme::config(
 
   validate_absolute_path($certhome)
   validate_absolute_path($home)
-  
+
+  $packages = ['libffi-dev', 'libssl-dev']
+  package { $packages:
+    provider => 'apt',
+    ensure   => 'present',
+  }
 
   class { 'python':
     version    => 'system',
@@ -22,6 +27,14 @@ class acme::config(
     venv_dir     => $pip_home,
     owner        => $user,
     group        => $group,
+  } ->
+  python::pip { 'requests[security]':
+    pkgname       => 'requests[security]',
+    virtualenv    => $pip_home,
+    owner         => $user,
+    group         => $group,
+    require       => Package['libffi-dev'],
+    require       => Package['libssl-dev'],
   } ->
   python::pip { 'dns-lexicon' :
     pkgname       => 'dns-lexicon',
