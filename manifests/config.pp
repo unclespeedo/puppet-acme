@@ -17,7 +17,7 @@ class acme::config(
   class { 'python':
     version    => 'system',
     pip        => 'present',
-    dev        => 'absent',
+    dev        => 'present',
     virtualenv => 'present',
     gunicorn   => 'absent',
   } ->
