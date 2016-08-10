@@ -33,8 +33,7 @@ class acme::config(
     virtualenv    => $pip_home,
     owner         => $user,
     group         => $group,
-    require       => Package['libffi-dev'],
-    require       => Package['libssl-dev'],
+    require       => Package['libffi-dev', 'libssl-dev'],
   } ->
   python::pip { 'dns-lexicon' :
     pkgname       => 'dns-lexicon',
