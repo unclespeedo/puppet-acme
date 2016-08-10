@@ -38,24 +38,24 @@ class acme::config(
     require => User[$user],
   }
 
-  exec { "acme-issue":
-    cwd          => $userhome,
-    environment  => $environment,
-    command      => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
-    user         => $user,
-    path         => [$home, $pip_bin, '/bin', '/usr/bin' ],
-    creates      => "$certhome/$::fqdn",
-    require      => Exec['acme-install'],
-  }
-  
-  cron { 'Renew SSL Cert':
-    ensure       => present,
-    environment  => "MAILTO=$accountemail",
-    command      => "$home/acme.sh --cron --home $home >> $userhome/renew.log 2>&1",
-    hour         => "4",
-    minute       => "35",
-    user         => $user,
-    require      => Exec['acme-install'],
-  }
+#  exec { "acme-issue":
+#    cwd          => $userhome,
+#    environment  => $environment,
+#    command      => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
+#    user         => $user,
+#    path         => [$home, $pip_bin, '/bin', '/usr/bin' ],
+#    creates      => "$certhome/$::fqdn",
+#    require      => Exec['acme-install'],
+#  }
+#  
+#  cron { 'Renew SSL Cert':
+#    ensure       => present,
+#    environment  => "MAILTO=$accountemail",
+#    command      => "$home/acme.sh --cron --home $home >> $userhome/renew.log 2>&1",
+#    hour         => "4",
+#    minute       => "35",
+#    user         => $user,
+#    require      => Exec['acme-install'],
+#  }
 
 }
