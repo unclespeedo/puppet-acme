@@ -8,16 +8,10 @@ class acme::config(
   validate_absolute_path($certhome)
   validate_absolute_path($home)
 
-  $packages = ['libffi-dev', 'libssl-dev']
-  package { $packages:
-    provider => 'apt',
-    ensure   => 'present',
-  }
-
   class { 'python':
     version    => '3',
     pip        => 'present',
-    dev        => 'present',
+    dev        => 'absent',
     virtualenv => 'present',
     gunicorn   => 'absent',
   } ->
