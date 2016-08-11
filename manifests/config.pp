@@ -9,7 +9,7 @@ class acme::config(
   validate_absolute_path($home)
 
   class { 'python':
-    version    => 'python3',
+    version    => 'system',
     pip        => 'present',
     dev        => 'absent',
     virtualenv => 'present',
