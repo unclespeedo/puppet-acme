@@ -24,6 +24,7 @@ class acme::config(
   } ->
   python::pip { 'dns-lexicon' :
     pkgname       => 'dns-lexicon',
+    url           => 'git+https://github.com/AnalogJ/lexicon.git',
     virtualenv    => $pip_home,
     owner         => $user,
     group         => $group,
