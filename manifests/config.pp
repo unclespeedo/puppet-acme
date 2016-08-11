@@ -17,7 +17,7 @@ class acme::config(
   } ->
   python::virtualenv { $pip_home:
     ensure       => present,
-    version      => 'system',
+    version      => 'python3',
     venv_dir     => $pip_home,
     owner        => $user,
     group        => $group,
