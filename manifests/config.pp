@@ -15,7 +15,7 @@ class acme::config(
   }
 
   class { 'python':
-    version    => 'system',
+    version    => '3',
     pip        => 'present',
     dev        => 'present',
     virtualenv => 'present',
@@ -28,13 +28,6 @@ class acme::config(
     owner        => $user,
     group        => $group,
   } ->
-  python::pip { 'requests[security]':
-    pkgname       => 'requests[security]',
-    virtualenv    => $pip_home,
-    owner         => $user,
-    group         => $group,
-    require       => Package['libffi-dev', 'libssl-dev'],
-  } ->
   python::pip { 'dns-lexicon' :
     pkgname       => 'dns-lexicon',
     virtualenv    => $pip_home,
@@ -44,7 +37,7 @@ class acme::config(
   exec { "acme-install":
     cwd     => $working_dir,
     command => "acme.sh --install --accountemail $accountemail --certhome $certhome --home $home --nocron",
-    path    => [ $working_dir, $pip_bin, '/bin', '/usr/bin',  ],
+    path    => [ $working_dir, $pip_bin, '/bin', '/usr/bin' ],
     user    => $user,
     creates => $home,
     require => User[$user],
