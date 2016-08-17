@@ -4,7 +4,7 @@ class acme::config(
   $home              = "$userhome/.acme.sh",
   $pip_bin           = "$pip_home/bin",
   $issue_command     = "acme.sh --home $home --issue -d $::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
-  $cert              = "$certhome/$::fqdn"
+  $cert              = "$certhome/$::fqdn/fullchain.cer"
 ) inherits acme {
 
   validate_absolute_path($certhome)
