@@ -3,10 +3,14 @@ class acme::config(
   $certhome          = "$userhome/certs",
   $home              = "$userhome/.acme.sh",
   $pip_bin           = "$pip_home/bin",
+  $issue_command     = "acme.sh --home $home --issue -d $::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
+  $cert              = "$certhome/$::fqdn"
 ) inherits acme {
 
   validate_absolute_path($certhome)
   validate_absolute_path($home)
+  validate_string($issue_command)
+  validate_absolute_path($cert)
 
   class { 'python':
     version    => 'system',
@@ -37,24 +41,24 @@ class acme::config(
     require => User[$user],
   }
 
-#  exec { "acme-issue":
-#    cwd          => $userhome,
-#    environment  => $environment,
-#    command      => "acme.sh --home $home --issue -d $::fqdn -d sales.$::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
-#    user         => $user,
-#    path         => [$home, $pip_bin, '/bin', '/usr/bin' ],
-#    creates      => "$certhome/$::fqdn",
-#    require      => Exec['acme-install'],
-#  }
-#  
-#  cron { 'Renew SSL Cert':
-#    ensure       => present,
-#    environment  => "MAILTO=$accountemail",
-#    command      => "$home/acme.sh --cron --home $home >> $userhome/renew.log 2>&1",
-#    hour         => "4",
-#    minute       => "35",
-#    user         => $user,
-#    require      => Exec['acme-install'],
-#  }
+  exec { "acme-issue":
+    cwd          => $userhome,
+    environment  => $environment,
+    command      => $issue_command,
+    user         => $user,
+    path         => [$home, $pip_bin, '/bin', '/usr/bin' ],
+    creates      => $cert,
+    require      => Exec['acme-install'],
+  }
+  
+  cron { 'Renew SSL Cert':
+    ensure       => present,
+    environment  => "MAILTO=$accountemail",
+    command      => "$home/acme.sh --cron --home $home >> $userhome/renew.log 2>&1",
+    hour         => "4",
+    minute       => "35",
+    user         => $user,
+    require      => Exec['acme-install'],
+  }
 
 }
