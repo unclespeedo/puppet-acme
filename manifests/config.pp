@@ -29,7 +29,7 @@ class acme::config(
   python::pip { 'dns-lexicon' :
     pkgname       => 'dns-lexicon',
     virtualenv    => $pip_home,
-    ensure        => '1.1.9',
+    ensure        => '1.1.8',
     owner         => $user,
     group         => $group,
   } ->
