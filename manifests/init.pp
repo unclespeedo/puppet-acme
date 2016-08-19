@@ -2,19 +2,19 @@
 #
 
 class acme (
-  $package_manage    = $acme::params::package_manage
-  $repo_manage		 = $acme::params::repo_manage
-  $repo_location     = $acme::params::repo_location
-  $repo_trusted      = $acme::params::repo_trusted
-  $package_ensure    = $acme::params::package_ensure
-  $package_name      = $acme::params::package_name
-  $issue_command     = $acme::params::issue_command
-  $working_dir       = '/usr/share/acme.sh'
-  $accountemail      = ''
-  $user              = $acme::params::user
-  $group             = $acme::params::group
-  $userhome          = "/home/$user"
-  $environment       = ''
+  $package_manage    = $acme::params::package_manage,
+  $repo_manage		 = $acme::params::repo_manage,
+  $repo_location     = $acme::params::repo_location,
+  $repo_trusted      = $acme::params::repo_trusted,
+  $package_ensure    = $acme::params::package_ensure,
+  $package_name      = $acme::params::package_name,
+  $issue_command     = $acme::params::issue_command,
+  $working_dir       = '/usr/share/acme.sh',
+  $accountemail      = '',
+  $user              = $acme::params::user,
+  $group             = $acme::params::group,
+  $userhome          = "/home/$user",
+  $environment       = '',
   $pip_home          = "$userhome/pip"
 ) inherits acme::params {
   validate_bool($package_manage)
