@@ -8,6 +8,7 @@ class acme (
   $repo_trusted      = $acme::params::repo_trusted,
   $package_ensure    = $acme::params::package_ensure,
   $package_name      = $acme::params::package_name,
+  $issue_command     = $acme::params::issue_command,
   $working_dir       = '/usr/share/acme.sh',
   $accountemail      = '',
   $user              = $acme::params::user,
@@ -28,6 +29,7 @@ class acme (
   validate_absolute_path($userhome)
   validate_array($environment)
   validate_absolute_path($pip_home)
+  validate_string($issue_command)
   
   if $package_manage {
     include acme::install

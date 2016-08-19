@@ -3,7 +3,6 @@ class acme::config(
   $certhome          = "$userhome/certs",
   $home              = "$userhome/.acme.sh",
   $pip_bin           = "$pip_home/bin",
-  $issue_command     = "acme.sh --home $home --issue -d $::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1",
   $cert              = "$certhome/$::fqdn/fullchain.cer"
 ) inherits acme {
 
