@@ -1,9 +1,11 @@
 # Private Class
 class acme::config(
-  $certhome          = "$userhome/certs",
-  $home              = "$userhome/.acme.sh",
+  $certhome          = $acme::certhome,
+  $home              = $acme::home,
+  $pip_home          = $acme::pip_home,
   $pip_bin           = "$pip_home/bin",
-  $cert              = "$certhome/$::fqdn/fullchain.cer"
+  $cert              = $acme::cert,
+  $issue_command     = $acme::issue_command
 ) inherits acme {
 
   validate_absolute_path($certhome)
