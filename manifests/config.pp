@@ -43,7 +43,8 @@ class acme::config(
   file { $certhome:
     ensure    => directory,
     owner     => $user,
-    mode      => '700'
+    mode      => '700',
+    require   => Exec['acme-install'],
   }
   exec { "acme-issue":
     cwd          => $userhome,
@@ -52,7 +53,7 @@ class acme::config(
     user         => $user,
     path         => [$home, $pip_bin, '/bin', '/usr/bin' ],
     creates      => $cert,
-    require      => Exec['acme-install'],
+    require      => File[$certhome],
   }
   
   cron { 'Renew SSL Cert':
