@@ -9,9 +9,4 @@ class acme::params {
   $group             = ''
   $working_dir       = '/usr/share/acme.sh'
   $issue_command     = "acme.sh --home $home --issue -d $::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1"
-  $userhome          = "/home/$user"
-  $home              = "$userhome/.acme.sh"
-  $pip_home          = "$userhome/pip"
-  $certhome          = "$userhome/certs"
-  $cert              = "$certhome/$::fqdn/fullchain.cer"
 }

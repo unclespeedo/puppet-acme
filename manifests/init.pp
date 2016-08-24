@@ -13,12 +13,12 @@ class acme (
   $accountemail      = '',
   $user              = $acme::params::user,
   $group             = $acme::params::group,
-  $home              = $acme::params::home,
-  $userhome          = $acme::params::userhome,
+  $userhome          = "/home/$user",
+  $home              = "$userhome/.acme.sh",
   $environment       = '',
-  $pip_home          = $acme::params::pip_home,
-  $certhome          = $acme::params::certhome,
-  $cert              = $acme::params::cert
+  $pip_home          = "$userhome/pip",
+  $certhome          = "$userhome/certs",
+  $cert              = "$certhome/$::fqdn/fullchain.cer"
 ) inherits acme::params {
   validate_bool($package_manage)
   validate_string($repo_location)
