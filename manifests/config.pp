@@ -40,7 +40,11 @@ class acme::config(
     creates => $home,
     require => User[$user],
   }
-
+  file { $certhome:
+    ensure    => directory,
+    owner     => $user,
+    mode      => '700'
+  }
   exec { "acme-issue":
     cwd          => $userhome,
     environment  => $environment,
