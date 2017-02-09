@@ -8,17 +8,12 @@ class acme (
   $repo_trusted      = $acme::params::repo_trusted,
   $package_ensure    = $acme::params::package_ensure,
   $package_name      = $acme::params::package_name,
-  $issue_command     = $acme::params::issue_command,
   $working_dir       = $acme::params::working_dir,
-  $accountemail      = '',
+  $accountemail      = $acme::params::accountemail,
   $user              = $acme::params::user,
   $group             = $acme::params::group,
-  $userhome          = "/home/$user",
-  $home              = "$userhome/.acme.sh",
-  $environment       = '',
-  $pip_home          = "$userhome/pip",
-  $certhome          = "$userhome/certs",
-  $cert              = "$certhome/$::fqdn/fullchain.cer"
+  $home              = $acme::params::home,
+  $dns_environment   = $acme::params::dns_environment,
 ) inherits acme::params {
   validate_bool($package_manage)
   validate_string($repo_location)
@@ -34,8 +29,8 @@ class acme (
   validate_absolute_path($userhome)
   validate_array($environment)
   validate_absolute_path($pip_home)
-  validate_absolute_path($certhome)
   validate_absolute_path($cert)
+  validate_array($dns_environment)
   
   if $package_manage {
     include acme::install

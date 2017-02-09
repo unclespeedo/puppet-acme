@@ -1,5 +1,5 @@
 #
-class acme::install inherits acme {
+class acme::install {
 
   include ::apt
   if $repo_manage {

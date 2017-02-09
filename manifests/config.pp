@@ -1,15 +1,15 @@
 # Private Class
 class acme::config(
-  $certhome          = $acme::certhome,
-  $home              = $acme::home,
-  $pip_home          = $acme::pip_home,
-  $pip_bin           = "$pip_home/bin",
-  $cert              = $acme::cert,
-  $issue_command     = $acme::issue_command
-) inherits acme {
+  $certhome          = $acme::params::certhome,
+  $acme_home         = $acme::params::acme_home,
+  $pip_home          = $acme::params::pip_home,
+  $pip_bin           = $acme::params::pip_bin,
+  $cert              = $acme::params::cert,
+  $issue_command     = $acme::params::issue_command
+) inherits acme::params {
 
   validate_absolute_path($certhome)
-  validate_absolute_path($home)
+  validate_absolute_path($acme_home)
   validate_string($issue_command)
   validate_absolute_path($cert)
 
@@ -36,10 +36,10 @@ class acme::config(
   } ->
   exec { "acme-install":
     cwd     => $working_dir,
-    command => "acme.sh --install --accountemail $accountemail --certhome $certhome --home $home --nocron",
+    command => "acme.sh --install --accountemail $accountemail --certhome $certhome --home $acme_home --nocron",
     path    => [ $working_dir, $pip_bin, '/bin', '/usr/bin' ],
     user    => $user,
-    creates => $home,
+    creates => $acme_home,
     require => User[$user],
   }
   file { $certhome:
@@ -53,7 +53,7 @@ class acme::config(
     environment  => $environment,
     command      => $issue_command,
     user         => $user,
-    path         => [$home, $pip_bin, '/bin', '/usr/bin' ],
+    path         => [$acme_home, $pip_bin, '/bin', '/usr/bin' ],
     creates      => $cert,
     require      => File[$certhome],
   }
@@ -61,7 +61,7 @@ class acme::config(
   cron { 'Renew SSL Cert':
     ensure       => present,
     environment  => "MAILTO=$accountemail",
-    command      => "$home/acme.sh --cron --home $home >> $userhome/renew.log 2>&1",
+    command      => "$acme_home/acme.sh --cron --home $acme_home >> $userhome/renew.log 2>&1",
     hour         => "4",
     minute       => "35",
     user         => $user,
