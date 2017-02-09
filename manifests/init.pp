@@ -27,7 +27,7 @@ class acme (
   validate_string($user)
   validate_string($group)
   validate_absolute_path($home)
-  validate_absolute_path($userhome)
+  validate_absolute_path($user_home)
   validate_absolute_path($pip_home)
   validate_absolute_path($cert)
   validate_array($dns_environment)
