@@ -16,9 +16,9 @@ class acme::params {
   $cert              = "$certhome/$::fqdn/fullchain.cer"
   $working_dir       = '/usr/share/acme.sh'
   $issue_command     = "acme.sh --home $home --issue -d $::fqdn --dns dns_lexicon --debug 2 >> $userhome/renew.log 2>&1"
-  $dns_environment   = {
+  $dns_environment   = [
     PROVIDER                     => 'dnsmadeeasy',
     LEXICON_DNSMADEEASY_USERNAME => '',
     LEXICON_DNSMADEEASY_TOKEN    => ''
-  }
+  ]
 }
