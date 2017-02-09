@@ -20,4 +20,5 @@ class acme::params {
     PROVIDER                     => 'dnsmadeeasy',
     LEXICON_DNSMADEEASY_USERNAME => '',
     LEXICON_DNSMADEEASY_TOKEN    => ''
+  }
 }
