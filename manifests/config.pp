@@ -1,17 +1,5 @@
 # Private Class
-class acme::config(
-  $certhome          = $acme::params::certhome,
-  $acme_home         = $acme::params::acme_home,
-  $pip_home          = $acme::params::pip_home,
-  $pip_bin           = $acme::params::pip_bin,
-  $cert              = $acme::params::cert,
-  $issue_command     = $acme::params::issue_command
-) inherits acme::params {
-
-  validate_absolute_path($certhome)
-  validate_absolute_path($acme_home)
-  validate_string($issue_command)
-  validate_absolute_path($cert)
+class acme::config {
 
   class { 'python':
     version    => 'system',
