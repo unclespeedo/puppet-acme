@@ -12,6 +12,7 @@ class acme (
   $accountemail      = $acme::params::accountemail,
   $user              = $acme::params::user,
   $group             = $acme::params::group,
+  $pip_home          = $acme::params::pip_home,
   $home              = $acme::params::home,
   $dns_environment   = $acme::params::dns_environment,
 ) inherits acme::params {
