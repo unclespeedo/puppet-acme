@@ -8,7 +8,7 @@ class acme::config {
     virtualenv => 'present',
     gunicorn   => 'absent',
   } ->
-  python::virtualenv { $pip_home:
+  python::virtualenv { $::pip_home:
     ensure       => present,
     version      => 'system',
     venv_dir     => $pip_home,
