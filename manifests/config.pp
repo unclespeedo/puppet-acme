@@ -1,5 +1,5 @@
 # Private Class
-class acme::config {
+class acme::config inherits acme {
 
   class { 'python':
     version    => 'system',
