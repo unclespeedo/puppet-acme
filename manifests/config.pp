@@ -38,7 +38,7 @@ class acme::config inherits acme {
   }
   exec { "acme-issue":
     cwd          => $user_home,
-    environment  => $environment,
+    environment  => $dns_environment,
     command      => $issue_command,
     user         => $user,
     path         => [$acme_home, $pip_bin, '/bin', '/usr/bin' ],
