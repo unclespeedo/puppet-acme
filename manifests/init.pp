@@ -15,6 +15,7 @@ class acme (
   Optional[Stdlib::Absolutepath] $pip_home,
   Optional[Stdlib::Absolutepath] $home,
   Optional[Stdlib::Absolutepath] $cert_home,
+  Optional[Stdlib::Absolutepath] $cert,
   Optional[Array[String]] $dns_environment,
 )  {
   
