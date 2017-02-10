@@ -4,11 +4,10 @@
 class acme (
   Optional[Boolean] $package_manage,
   Optional[Boolean] $repo_manage,
-  Optional[String] $repo_location,
   Optional[Boolean] $repo_trusted,
+  Optional[String] $repo_location,
   Optional[String] $package_ensure,
   Optional[String] $package_name,
-  Optional[Stdlib::Absolutepath] $working_dir,
   Optional[String] $accountemail,
   Optional[String] $user,
   Optional[String] $group,
@@ -16,6 +15,7 @@ class acme (
   Optional[Stdlib::Absolutepath] $home,
   Optional[Stdlib::Absolutepath] $cert_home,
   Optional[Stdlib::Absolutepath] $cert,
+  Optional[Stdlib::Absolutepath] $working_dir,
   Optional[Array[String]] $dns_environment,
 )  {
   
