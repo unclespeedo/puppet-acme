@@ -15,7 +15,6 @@ class acme (
   Optional[String] $install_command,
   Optional[Stdlib::Absolutepath] $pip_home,
   Optional[Stdlib::Absolutepath] $pip_bin,
-  Optional[Stdlib::Absolutepath] $home,
   Optional[Stdlib::Absolutepath] $acme_home,
   Optional[Stdlib::Absolutepath] $user_home,
   Optional[Stdlib::Absolutepath] $cert_home,
