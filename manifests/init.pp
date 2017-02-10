@@ -17,6 +17,8 @@ class acme (
   Optional[Stdlib::Absolutepath] $cert,
   Optional[Stdlib::Absolutepath] $working_dir,
   Optional[Array[String]] $dns_environment,
+  Optional[Array[String]] $issue_command,
+  Optional[Array[String]] $install_command,
 )  {
   
   if $package_manage {

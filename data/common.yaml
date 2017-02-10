@@ -15,6 +15,7 @@ acme::accountemail: 'email@provider.com'
 acme::cert_home: "%{hiera('acme::user_home')}/certs"
 acme::cert: "%{hiera('acme::cert_home')}/%{::fqdn}/fullchain.cer"
 acme::working_dir: '/usr/share/acme.sh'
+acme::install_command: "acme.sh --install --accountemail %{hiera('acme::accountemail')} --certhome %{hiera('acme::cert_home')} --home %{hiera('acme::acme_home')} --nocron"
 acme::issue_command: "acme.sh --home %{hiera('acme::acme_home')} --issue -d %{::fqdn} --dns dns_lexicon --debug 2 >> %{hiera('acme::user_home')}/renew.log 2>&1"
 acme::dns_environment:
   - PROVIDER=

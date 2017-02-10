@@ -24,7 +24,7 @@ class acme::config inherits acme {
   } ->
   exec { "acme-install":
     cwd     => $working_dir,
-    command => "acme.sh --install --accountemail $accountemail --certhome $cert_home --home $acme_home --nocron",
+    command => $install_command,
     path    => [ $working_dir, $pip_bin, '/bin', '/usr/bin' ],
     user    => $user,
     creates => $acme_home,
