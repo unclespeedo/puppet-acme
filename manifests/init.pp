@@ -14,7 +14,7 @@ class acme (
   Optional[String] $group,
   Optional[Stdlib::Absolutepath] $pip_home,
   Optional[Stdlib::Absolutepath] $home,
-  Array[String] $dns_environment,
+  Optional[Array[String]] $dns_environment,
 )  {
   
   if $package_manage {
