@@ -1,0 +1,22 @@
+---
+acme::user: 'acme'
+acme::group: 'acme'
+acme::user_home: "/home/%{hiera('acme::user')}"
+acme::acme_home: "%{hiera('acme::user_home')}/.acme.sh"
+acme::pip_home: "%{hiera('acme::user_home')}/pip"
+acme::pip_bin: "%{hiera('acme::pip_home')}/bin"
+acme::package_manage: false
+acme::package_name: 'acme.sh'
+acme::package_ensure: 'latest'
+acme::repo_manage: false
+acme::repo_location: ''
+acme::repo_trusted: false
+acme::accountemail: 'email@provider.com'
+acme::cert_home: "%{hiera('acme::user_home')}/certs"
+acme::cert: "%{hiera('acme::cert_home')}/%{::fqdn}/fullchain.cer"
+acme::working_dir: '/usr/share/acme.sh'
+acme::issue_command: "acme.sh --home %{hiera('acme::acme_home')} --issue -d %{::fqdn} --dns dns_lexicon --debug 2 >> %{hiera('acme::user_home')}/renew.log 2>&1"
+acme::dns_environment:
+  - PROVIDER=
+  - PROVIDER_USERNAME=
+  - PROVIDER_TOKEN=
