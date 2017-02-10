@@ -11,14 +11,14 @@ class acme (
   Optional[String] $accountemail,
   Optional[String] $user,
   Optional[String] $group,
+  Optional[String] $issue_command,
+  Optional[String] $install_command,
   Optional[Stdlib::Absolutepath] $pip_home,
   Optional[Stdlib::Absolutepath] $home,
   Optional[Stdlib::Absolutepath] $cert_home,
   Optional[Stdlib::Absolutepath] $cert,
   Optional[Stdlib::Absolutepath] $working_dir,
   Optional[Array[String]] $dns_environment,
-  Optional[Array[String]] $issue_command,
-  Optional[Array[String]] $install_command,
 )  {
   
   if $package_manage {
