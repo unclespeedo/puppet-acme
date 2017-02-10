@@ -39,7 +39,7 @@ class acme::config inherits acme {
   exec { "acme-issue":
     cwd          => $user_home,
     environment  => $dns_environment,
-    command      => $issue_command,
+    command      => "acme.sh --home $acme_home --issue $issue_command >> $user_home/renew.log 2>&1",
     user         => $user,
     path         => [$acme_home, $pip_bin, '/bin', '/usr/bin' ],
     creates      => $cert,
