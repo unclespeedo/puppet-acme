@@ -8,7 +8,7 @@ class acme::config inherits acme {
     virtualenv => 'present',
     gunicorn   => 'absent',
   }
-  -> python::virtualenv { $::pip_home:
+  -> python::virtualenv { $pip_home:
     ensure   => present,
     version  => 'system',
     venv_dir => $::pip_home,
@@ -30,7 +30,7 @@ class acme::config inherits acme {
     creates => $::acme_home,
     require => User[$::user],
   }
-  file { $::cert_home:
+  file { $cert_home:
     ensure  => directory,
     owner   => $::user,
     mode    => '0700',
