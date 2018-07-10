@@ -35,6 +35,9 @@ class acme (
     ensure => $package_ensure,
     notify => Exec['acme-install'],
   }
+  package { 'socat':
+    ensure => 'installed'
+  }
   Class['apt::update'] -> Package[$package_name]
 
   }
