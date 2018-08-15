@@ -48,7 +48,7 @@ class acme::config inherits acme {
   cron { 'Renew SSL Cert':
     ensure      => present,
     environment => "MAILTO=${acme::accountemail}",
-    command     => "${::acme_home}/acme.sh --cron --home ${acme::acme_home} >> ${acme::user_home}/renew.log 2>&1",
+    command     => "${acme::acme_home}/acme.sh --cron --home ${acme::acme_home} >> ${acme::user_home}/renew.log 2>&1",
     hour        => '4',
     minute      => '35',
     user        => $acme::user,
