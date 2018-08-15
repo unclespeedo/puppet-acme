@@ -11,47 +11,47 @@ class acme::config inherits acme {
   -> python::virtualenv { $pip_home:
     ensure   => present,
     version  => 'system',
-    venv_dir => $::pip_home,
-    owner    => $::user,
-    group    => $::group,
+    venv_dir => $acme::pip_home,
+    owner    => $acme::user,
+    group    => $acme::group,
   }
   -> python::pip { 'dns-lexicon' :
     ensure     => '1.1.8',
     pkgname    => 'dns-lexicon',
-    virtualenv => $::pip_home,
-    owner      => $::user,
-    group      => $::group,
+    virtualenv => $acme::pip_home,
+    owner      => $acme::user,
+    group      => $acme::group,
   }
   -> exec { 'acme-install':
-    cwd     => $::working_dir,
-    command => $::install_command,
-    path    => [ $::working_dir, $::pip_bin, '/bin', '/usr/bin' ],
-    user    => $::user,
-    creates => $::acme_home,
-    require => User[$::user],
+    cwd     => $acme::working_dir,
+    command => $acme::install_command,
+    path    => [ $acme::working_dir, $acme::pip_bin, '/bin', '/usr/bin' ],
+    user    => $acme::user,
+    creates => $acme::acme_home,
+    require => User[$acme::user],
   }
   file { $cert_home:
     ensure  => directory,
-    owner   => $::user,
+    owner   => $acme::user,
     mode    => '0700',
     require => Exec['acme-install'],
   }
   exec { 'acme-issue':
-    cwd         => $::user_home,
-    environment => $::dns_environment,
-    command     => "acme.sh --home ${::acme_home} --issue ${::issue_command} >> ${::user_home}/renew.log 2>&1",
-    user        => $::user,
-    path        => [$::acme_home, $::pip_bin, '/bin', '/usr/bin' ],
-    creates     => $::cert,
-    require     => File[$::cert_home],
+    cwd         => $acme::user_home,
+    environment => $acme::dns_environment,
+    command     => "acme.sh --home ${acme::acme_home} --issue ${acme::issue_command} >> ${acme::user_home}/renew.log 2>&1",
+    user        => $acme::user,
+    path        => [$acme::acme_home, $acme::pip_bin, '/bin', '/usr/bin' ],
+    creates     => $acme::cert,
+    require     => File[$acme::cert_home],
   }
   cron { 'Renew SSL Cert':
     ensure      => present,
-    environment => "MAILTO=${::accountemail}",
-    command     => "${::acme_home}/acme.sh --cron --home ${::acme_home} >> ${::user_home}/renew.log 2>&1",
+    environment => "MAILTO=${acme::accountemail}",
+    command     => "${::acme_home}/acme.sh --cron --home ${acme::acme_home} >> ${acme::user_home}/renew.log 2>&1",
     hour        => '4',
     minute      => '35',
-    user        => $::user,
+    user        => $acme::user,
     require     => Exec['acme-install'],
   }
 
