@@ -3,20 +3,20 @@ class acme::config inherits acme {
 
   class { 'python':
     version    => 'system',
-    pip        => 'present',
+    pip        => 'latest',
     dev        => 'absent',
     virtualenv => 'present',
     gunicorn   => 'absent',
   }
   -> python::virtualenv { $pip_home:
     ensure   => present,
-    version  => 'system',
+    version  => '3',
     venv_dir => $acme::pip_home,
     owner    => $acme::user,
     group    => $acme::group,
   }
   -> python::pip { 'dns-lexicon' :
-    ensure     => '1.1.8',
+    ensure     => 'present',
     pkgname    => 'dns-lexicon',
     virtualenv => $acme::pip_home,
     owner      => $acme::user,
